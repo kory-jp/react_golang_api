@@ -1,7 +1,7 @@
 package main
 
 import (
-	"react_golang_api/api/infrastructure"
+	"github.com/kory-jp/react_golang_api/api/infrastructure"
 )
 
 func main() {

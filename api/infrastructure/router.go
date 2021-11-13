@@ -2,7 +2,8 @@ package infrastructure
 
 import (
 	"net/http"
-	"react_golang_api/api/interfaces/controllers"
+
+	"github.com/kory-jp/react_golang_api/api/interfaces/controllers"
 )
 
 func Init() {
