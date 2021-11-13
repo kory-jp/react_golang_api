@@ -1,2 +1,6 @@
-gopkg.in/go-ini/ini.v1 v1.63.2 h1:u3gDeT3/RzrpK/BFT+lEq+6qndGBhzXkavTDKKRU54U=
-gopkg.in/go-ini/ini.v1 v1.63.2/go.mod h1:M74/hG4RTwbkZyTEZ9iQwM4v6dFD4u6QBjoqT/pM8Kg=
+github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=
+github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
+gopkg.in/go-ini/ini.v1 v1.64.0 h1:0btFvHBe72ZRGqGVD0Ld0ENZrxLx/7DN91RFgcUCuLs=
+gopkg.in/go-ini/ini.v1 v1.64.0/go.mod h1:M74/hG4RTwbkZyTEZ9iQwM4v6dFD4u6QBjoqT/pM8Kg=
+gopkg.in/ini.v1 v1.64.0 h1:Mj2zXEXcNb5joEiSA0zc3HZpTst/iyjNiR4CN8tDzOg=
+gopkg.in/ini.v1 v1.64.0/go.mod h1:pNLf8WUiyNEtQjuu5G5vTm06TEv9tsIgeAvK8hOrP4k=
