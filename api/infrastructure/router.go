@@ -7,6 +7,8 @@ import (
 )
 
 func Init() {
-	http.HandleFunc("/user", controllers.GetUser)
+	// http.HandleFunc("/user", controllers.GetUser)
+	userController := controllers.NewUserController(NewSqlHandler())
+	http.HandleFunc("/users", userController.Index)
 	http.ListenAndServe(":8080", nil)
 }
