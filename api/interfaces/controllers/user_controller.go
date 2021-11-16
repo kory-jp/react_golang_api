@@ -24,7 +24,7 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
 	}
 }
 
-func (controller *UserController) Index(W http.ResponseWriter, r *http.Request) {
+func (controller *UserController) Index(w http.ResponseWriter, r *http.Request) {
 	users, err := controller.Interfactor.Users()
 	if err != nil {
 		log.Panicln(err)
@@ -34,5 +34,5 @@ func (controller *UserController) Index(W http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		log.Panicln(err)
 	}
-	fmt.Println(string(us))
+	fmt.Fprintf(w, string(us))
 }
