@@ -36,3 +36,16 @@ func (controller *UserController) Index(w http.ResponseWriter, r *http.Request) 
 	}
 	fmt.Fprintf(w, string(us))
 }
+
+func (controller *UserController) Show(w http.ResponseWriter, r *http.Request, id int) {
+	user, err := controller.Interfactor.UserById(id)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	jsonUser, err := json.Marshal(user)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Fprintf(w, string(jsonUser))
+}
