@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/kory-jp/react_golang_api/api/domain"
@@ -51,7 +52,8 @@ func (repo *UserRepository) FindById(identifier int) (user domain.User, err erro
 	var age int
 	row.Next()
 	if err = row.Scan(&id, &name, &age); err != nil {
-		log.Fatalln(err)
+		// log.Fatalln(err)
+		fmt.Println(err)
 		return
 	}
 	user.ID = id
