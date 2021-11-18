@@ -32,7 +32,8 @@ func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc
 func Init() {
 	// http.HandleFunc("/user", controllers.GetUser)
 	userController := controllers.NewUserController(NewSqlHandler())
-	http.HandleFunc("/users", userController.Index)
+	http.HandleFunc("/users/new", userController.Create)
+	http.HandleFunc("/users/index", userController.Index)
 	http.HandleFunc("/users/show/", parseURL(userController.Show))
 	http.ListenAndServe(":8080", nil)
 }
