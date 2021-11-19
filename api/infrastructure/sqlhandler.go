@@ -3,6 +3,7 @@ package infrastructure
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -14,11 +15,32 @@ type SqlHandler struct {
 	Conn *sql.DB
 }
 
+const (
+	tableNameUser = "users"
+	// tableNameTodo    = "todos"
+	// tableNameSession = "sessions"
+)
+
 func NewSqlHandler() *SqlHandler {
 	DSN := fmt.Sprintf("%s:%s@%s/%s?parseTime=true", config.Config.UserName, config.Config.Password, config.Config.DBPort, config.Config.DBname)
 	conn, err := sql.Open(config.Config.SQLDriver, DSN)
 	if err != nil {
 		panic(err.Error())
+	}
+
+	cmdU := fmt.Sprintf(`
+	CREATE TABLE IF NOT EXISTS %s(
+		id INTEGER PRIMARY KEY auto_increment,
+		uuid varchar(50) NOT NULL UNIQUE,
+		name varchar(50),
+		email varchar(50),
+		password varchar(50),
+		created_at datetime default current_timestamp
+	)`, tableNameUser)
+
+	_, errU := conn.Exec(cmdU)
+	if errU != nil {
+		log.Fatalln(err)
 	}
 
 	sqlHandler := new(SqlHandler)
