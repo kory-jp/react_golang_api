@@ -40,7 +40,7 @@ func NewSqlHandler() *SqlHandler {
 
 	_, errU := conn.Exec(cmdU)
 	if errU != nil {
-		log.Fatalln(err)
+		log.Fatalln(errU)
 	}
 
 	sqlHandler := new(SqlHandler)

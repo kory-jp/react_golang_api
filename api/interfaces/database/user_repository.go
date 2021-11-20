@@ -1,9 +1,12 @@
 package database
 
 import (
+	"crypto/sha1"
 	"fmt"
 	"log"
+	"time"
 
+	"github.com/google/uuid"
 	"github.com/kory-jp/react_golang_api/api/domain"
 )
 
@@ -12,14 +15,23 @@ type UserRepository struct {
 }
 
 func (repo *UserRepository) Store(u domain.User) (id int, err error) {
+	// uuid作成
+	uuidobj, _ := uuid.NewUUID()
+	//パスワードを暗号化
+	cryptext := fmt.Sprintf("%x", sha1.Sum([]byte(u.Password)))
 	result, err := repo.Execute(`
 		insert into
-			users
-			(name, age)
+			users(
+				uuid, 
+				name, 
+				email,
+				password,
+				created_at)
 		values
-			(?, ?)
-	`, u.Name, u.Age)
+			(?, ?, ?, ?, ?)
+	`, uuidobj, u.Name, u.Email, cryptext, time.Now())
 	if err != nil {
+		log.Fatalln(err)
 		return
 	}
 	id64, err := result.LastInsertId()
@@ -35,8 +47,11 @@ func (repo *UserRepository) FindById(identifier int) (user domain.User, err erro
 	row, err := repo.Query(`
 		select
 			id,
+			uuid,
 			name,
-			age
+			email,
+			password,
+			created_at
 		from
 			users
 		where
@@ -48,26 +63,35 @@ func (repo *UserRepository) FindById(identifier int) (user domain.User, err erro
 		return
 	}
 	var id int
+	var uuid string
 	var name string
-	var age int
+	var email string
+	var password string
+	var created_at time.Time
 	row.Next()
-	if err = row.Scan(&id, &name, &age); err != nil {
+	if err = row.Scan(&id, &uuid, &name, &email, &password, &created_at); err != nil {
 		// log.Fatalln(err)
 		fmt.Println(err)
 		return
 	}
 	user.ID = id
+	user.UUID = uuid
 	user.Name = name
-	user.Age = age
+	user.Email = email
+	user.Password = password
+	user.CreatedAt = created_at
 	return
 }
 
 func (repo *UserRepository) FindAll() (users domain.Users, err error) {
 	rows, err := repo.Query(`
 		select
-			id, 
+			id,
+			uuid,
 			name,
-			age
+			email,
+			password,
+			created_at,
 		from
 			users
 	`)
@@ -77,15 +101,21 @@ func (repo *UserRepository) FindAll() (users domain.Users, err error) {
 	}
 	for rows.Next() {
 		var id int
+		var uuid string
 		var name string
-		var age int
-		if err := rows.Scan(&id, &name, &age); err != nil {
+		var email string
+		var password string
+		var created_at time.Time
+		if err := rows.Scan(&id, &uuid, &name, &email, &password, &created_at); err != nil {
 			continue
 		}
 		user := domain.User{
-			ID:   id,
-			Name: name,
-			Age:  age,
+			ID:        id,
+			UUID:      uuid,
+			Name:      name,
+			Email:     email,
+			Password:  password,
+			CreatedAt: created_at,
 		}
 		users = append(users, user)
 	}
