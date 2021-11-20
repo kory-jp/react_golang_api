@@ -27,20 +27,15 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
 }
 
 func (controller *UserController) Create(w http.ResponseWriter, r *http.Request) {
-	// ioutilは入出力関連のユーティリティ関数が定義されている
-	// ユーティリティ関数 = Function オブジェクトを使用して、特定の関数の GUID を解析、エンコード、復号化、または返します
-	// ReadAll = os.Openなどで開いているファイル(*os.File)からファイルの内容を一度にすべて読み込む。
-	// ファイルの内容はバイト型なので、文字列型として使用する場合は string(data) します。
 	bytesUser, err := io.ReadAll(r.Body)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalln(err)
 		return
 	}
-	// 空のユーザー構造体をインスタンス
 	userType := new(domain.User)
-	// json形式のデータをユーザー構造体の型に変換
 	if err := json.Unmarshal(bytesUser, userType); err != nil {
-		fmt.Println(err)
+		fmt.Printf("%#v\n", err)
+		log.Fatalln(err)
 		return
 	}
 	user, err := controller.Interfactor.Add(*userType)

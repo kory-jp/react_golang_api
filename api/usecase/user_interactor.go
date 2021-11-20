@@ -1,6 +1,8 @@
 package usecase
 
-import "github.com/kory-jp/react_golang_api/api/domain"
+import (
+	"github.com/kory-jp/react_golang_api/api/domain"
+)
 
 type UserInteractor struct {
 	UserRepository UserRepository
