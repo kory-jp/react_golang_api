@@ -30,8 +30,9 @@ func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc
 }
 
 func Init() {
-	// http.HandleFunc("/user", controllers.GetUser)
 	userController := controllers.NewUserController(NewSqlHandler())
+	// todoController := controllers.NewTodoController(NewSqlHandler())
+	// http.HandleFunc("/user", controllers.GetUser)
 	http.HandleFunc("/users/new", userController.Create)
 	// http.HandleFunc("/users/index", userController.Index)
 	http.HandleFunc("/users/show/", parseURL(userController.Show))
