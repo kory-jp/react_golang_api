@@ -9,7 +9,7 @@ import (
 )
 
 //正規表現を利用してURLを解析
-var validPath = regexp.MustCompile("/users/show|update/([0-9]+)$")
+var validPath = regexp.MustCompile("/users/show|update|delete/([0-9]+)$")
 
 //URLからIDを解析して返却
 func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
@@ -36,5 +36,6 @@ func Init() {
 	// http.HandleFunc("/users/index", userController.Index)
 	http.HandleFunc("/users/show/", parseURL(userController.Show))
 	http.HandleFunc("/users/update/", parseURL(userController.Update))
+	http.HandleFunc("/users/delete/", parseURL(userController.Delete))
 	http.ListenAndServe(":8080", nil)
 }

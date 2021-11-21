@@ -97,3 +97,12 @@ func (controller *UserController) Update(w http.ResponseWriter, r *http.Request,
 	}
 	fmt.Fprintf(w, string(jsonUser))
 }
+
+func (controller *UserController) Delete(w http.ResponseWriter, r *http.Request, id int) {
+	if err := controller.Interfactor.DeleteUser(id); err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	} else {
+		fmt.Fprintf(w, "削除成功")
+	}
+}
