@@ -6,7 +6,9 @@ type SqlHandler interface {
 }
 
 type Result interface {
+	//データ保存した最後のIDを取得
 	LastInsertId() (int64, error)
+	//更新したレコード数を取得
 	RowsAffected() (int64, error)
 }
 

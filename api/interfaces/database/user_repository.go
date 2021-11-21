@@ -121,3 +121,27 @@ func (repo *UserRepository) FindAll() (users domain.Users, err error) {
 	}
 	return
 }
+
+func (repo *UserRepository) Update(identifier int, u domain.User) (id int, err error) {
+	repo.Execute(`
+		update
+			users
+		set
+			name = ?,
+			email = ?
+		where
+			id = ?
+`, u.Name, u.Email, identifier)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	// ----- IDが取得できない------
+	// id64, err := result.LastInsertId()
+	// fmt.Println("UR142", id64)
+	// if err != nil {
+	// 	return
+	// }
+	id = int(identifier)
+	return
+}

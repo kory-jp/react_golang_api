@@ -52,6 +52,8 @@ func (handler *SqlHandler) Execute(statemant string, args ...interface{}) (datab
 	res := SqlResult{}
 	result, err := handler.Conn.Exec(statemant, args...)
 	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
 		return res, err
 	}
 	res.Result = result
