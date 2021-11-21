@@ -123,7 +123,8 @@ func (repo *UserRepository) FindAll() (users domain.Users, err error) {
 }
 
 func (repo *UserRepository) Update(identifier int, u domain.User) (id int, err error) {
-	repo.Execute(`
+	// result, err := repo.Execute(`
+	_, error := repo.Execute(`
 		update
 			users
 		set
@@ -133,7 +134,8 @@ func (repo *UserRepository) Update(identifier int, u domain.User) (id int, err e
 			id = ?
 `, u.Name, u.Email, identifier)
 	if err != nil {
-		log.Println(err)
+		log.SetFlags(log.Llongfile)
+		log.Println(error)
 		return
 	}
 	// ----- IDが取得できない------
@@ -143,5 +145,13 @@ func (repo *UserRepository) Update(identifier int, u domain.User) (id int, err e
 	// 	return
 	// }
 	id = int(identifier)
+	return
+}
+
+func (repo *UserRepository) Delete(identifier int) (err error) {
+	if _, err := repo.Execute(`delete from users where id = ?`, identifier); err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
 	return
 }

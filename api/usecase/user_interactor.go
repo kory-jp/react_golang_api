@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/kory-jp/react_golang_api/api/domain"
 )
@@ -36,5 +37,13 @@ func (interactor *UserInteractor) UpdateUser(identifier int, u domain.User) (use
 		return
 	}
 	user, err = interactor.UserRepository.FindById(updateUseridentifier)
+	return
+}
+
+func (interactor *UserInteractor) DeleteUser(identifier int) (err error) {
+	if err := interactor.UserRepository.Delete(identifier); err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
 	return
 }
