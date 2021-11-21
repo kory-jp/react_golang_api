@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"fmt"
+
 	"github.com/kory-jp/react_golang_api/api/domain"
 )
 
@@ -24,5 +26,15 @@ func (interactor *UserInteractor) Users() (user domain.Users, err error) {
 
 func (interactor *UserInteractor) UserById(identifier int) (user domain.User, err error) {
 	user, err = interactor.UserRepository.FindById(identifier)
+	return
+}
+
+func (interactor *UserInteractor) UpdateUser(identifier int, u domain.User) (user domain.User, err error) {
+	updateUseridentifier, err := interactor.UserRepository.Update(identifier, u)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	user, err = interactor.UserRepository.FindById(updateUseridentifier)
 	return
 }

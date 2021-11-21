@@ -62,10 +62,34 @@ func (controller *UserController) Index(w http.ResponseWriter, r *http.Request) 
 }
 
 func (controller *UserController) Show(w http.ResponseWriter, r *http.Request, id int) {
+	fmt.Println(id)
 	user, err := controller.Interfactor.UserById(id)
 	if err != nil {
 		log.Println(err)
 		return
+	}
+	jsonUser, err := json.Marshal(user)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Fprintf(w, string(jsonUser))
+}
+
+func (controller *UserController) Update(w http.ResponseWriter, r *http.Request, id int) {
+	bytesUser, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Fatalln(err)
+		return
+	}
+	userType := new(domain.User)
+	if err := json.Unmarshal(bytesUser, userType); err != nil {
+		fmt.Printf("%#v\n", err)
+		log.Fatalln(err)
+		return
+	}
+	user, err := controller.Interfactor.UpdateUser(id, *userType)
+	if err != nil {
+		log.Println(err)
 	}
 	jsonUser, err := json.Marshal(user)
 	if err != nil {
