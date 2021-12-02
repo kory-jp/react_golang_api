@@ -31,5 +31,11 @@ curl -v -H "Accept: application/json"  -H "Content-Type: application/json"  http
 todos/create
 
 ```
+ curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -d '{"user_id":3,"content":"test_todo_1"}' http://localhost:8080/todos/new
+```
 
+todos/show
+
+```
+curl -v -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:8080/todos/show/1
 ```
