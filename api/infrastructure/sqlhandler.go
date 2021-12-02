@@ -46,9 +46,9 @@ func NewSqlHandler() *SqlHandler {
 	cmdT := fmt.Sprintf(`
 	create table if not exists %s (
 		id integer primary key auto_increment,
-			content text,
-			user_id integer,
-			created_at datetime default current_timestamp
+		user_id integer,
+		content text,
+		created_at datetime default current_timestamp
 	)`, tableNameTodo)
 
 	_, errT := conn.Exec(cmdT)

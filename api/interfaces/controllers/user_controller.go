@@ -62,7 +62,6 @@ func (controller *UserController) Index(w http.ResponseWriter, r *http.Request) 
 }
 
 func (controller *UserController) Show(w http.ResponseWriter, r *http.Request, id int) {
-	fmt.Println(id)
 	user, err := controller.Interfactor.UserById(id)
 	if err != nil {
 		log.Println(err)
