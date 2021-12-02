@@ -47,3 +47,16 @@ func (controller *TodoController) Create(w http.ResponseWriter, r *http.Request)
 	fmt.Println(todo)
 	fmt.Fprintln(w, todo)
 }
+
+func (controller *TodoController) Show(w http.ResponseWriter, r *http.Request, id int) {
+	todo, err := controller.Interactor.TodoById(id)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	jsonTodo, err := json.Marshal(todo)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Fprintln(w, string(jsonTodo))
+}
