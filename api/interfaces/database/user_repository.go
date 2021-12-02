@@ -133,7 +133,7 @@ func (repo *UserRepository) Update(identifier int, u domain.User) (id int, err e
 		where
 			id = ?
 `, u.Name, u.Email, identifier)
-	if err != nil {
+	if error != nil {
 		log.SetFlags(log.Llongfile)
 		log.Println(error)
 		return
