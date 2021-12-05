@@ -35,3 +35,14 @@ func (interactor *TodoInteractor) TodoById(indentifier int) (todo domain.Todo, e
 	}
 	return
 }
+
+func (interactor *TodoInteractor) UpdateTodo(indentifier int, t domain.Todo) (todo domain.Todo, err error) {
+	updateTodoIdentifier, err := interactor.TodoRepository.Update(indentifier, t)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+		return
+	}
+	todo, err = interactor.TodoRepository.FindById(updateTodoIdentifier)
+	return
+}

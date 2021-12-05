@@ -60,3 +60,29 @@ func (controller *TodoController) Show(w http.ResponseWriter, r *http.Request, i
 	}
 	fmt.Fprintln(w, string(jsonTodo))
 }
+
+func (controller *TodoController) Update(w http.ResponseWriter, r *http.Request, id int) {
+	bytesTodo, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+		return
+	}
+	todoType := new(domain.Todo)
+	if err := json.Unmarshal(bytesTodo, todoType); err != nil {
+		fmt.Printf("%#v\n", err)
+		log.Fatalln(err)
+		return
+	}
+	todo, err := controller.Interactor.UpdateTodo(id, *todoType)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	jsonTodo, err := json.Marshal(todo)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	fmt.Fprintf(w, string(jsonTodo))
+}
