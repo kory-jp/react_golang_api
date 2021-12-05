@@ -86,3 +86,11 @@ func (repo *TodoRepository) Update(identifier int, t domain.Todo) (id int, err e
 	id = int(identifier)
 	return
 }
+
+func (repo *TodoRepository) Delete(identifier int) (err error) {
+	if _, err := repo.Execute(`delete from todos where id = ?`, identifier); err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	return
+}

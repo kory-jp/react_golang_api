@@ -7,5 +7,5 @@ type TodoRepository interface {
 	FindById(int) (domain.Todo, error)
 	// FindAll() (domain.Todo, error)
 	Update(int, domain.Todo) (int, error)
-	// Delete(int) error
+	Delete(int) error
 }
