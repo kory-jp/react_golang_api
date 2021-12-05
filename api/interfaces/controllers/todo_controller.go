@@ -48,6 +48,21 @@ func (controller *TodoController) Create(w http.ResponseWriter, r *http.Request)
 	fmt.Fprintln(w, todo)
 }
 
+func (controller *TodoController) Index(w http.ResponseWriter, r *http.Request) {
+	todos, err := controller.Interactor.Todos()
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	jsonTodos, err := json.Marshal(todos)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	fmt.Println(string(jsonTodos))
+	fmt.Fprintln(w, string(jsonTodos))
+}
+
 func (controller *TodoController) Show(w http.ResponseWriter, r *http.Request, id int) {
 	todo, err := controller.Interactor.TodoById(id)
 	if err != nil {

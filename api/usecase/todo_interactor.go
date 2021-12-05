@@ -26,6 +26,11 @@ func (interactor *TodoInteractor) Add(t domain.Todo) (todo domain.Todo, err erro
 	return
 }
 
+func (interactor *TodoInteractor) Todos() (todos domain.Todos, err error) {
+	todos, err = interactor.TodoRepository.FindAll()
+	return
+}
+
 func (interactor *TodoInteractor) TodoById(indentifier int) (todo domain.Todo, err error) {
 	todo, err = interactor.TodoRepository.FindById(indentifier)
 	if err != nil {

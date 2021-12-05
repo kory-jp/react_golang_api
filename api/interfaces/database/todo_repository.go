@@ -36,6 +36,40 @@ func (repo *TodoRepository) Store(t domain.Todo) (id int, err error) {
 	return
 }
 
+func (repo *TodoRepository) FindAll() (todos domain.Todos, err error) {
+	rows, err := repo.Query(`
+		select
+			id,
+			user_id,
+			content,
+			created_at
+		from
+			todos
+	`)
+	defer rows.Close()
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	for rows.Next() {
+		var id int
+		var user_id int
+		var content string
+		var created_at time.Time
+		if err := rows.Scan(&id, &user_id, &content, &created_at); err != nil {
+			continue
+		}
+		todo := domain.Todo{
+			ID:        id,
+			UserID:    user_id,
+			Content:   content,
+			CreatedAt: created_at,
+		}
+		todos = append(todos, todo)
+	}
+	return
+}
+
 func (repo *TodoRepository) FindById(identifier int) (todo domain.Todo, err error) {
 	row, err := repo.Query(`
 		select

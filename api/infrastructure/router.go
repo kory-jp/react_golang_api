@@ -45,6 +45,7 @@ func Init() {
 	http.HandleFunc("/users/update/", parseURL(userController.Update))
 	http.HandleFunc("/users/delete/", parseURL(userController.Delete))
 	http.HandleFunc("/todos/new", todoController.Create)
+	http.HandleFunc("/todos/index", todoController.Index)
 	http.HandleFunc("/todos/show/", parseURL(todoController.Show))
 	http.HandleFunc("/todos/update/", parseURL(todoController.Update))
 	http.HandleFunc("/todos/delete/", parseURL(todoController.Delete))
