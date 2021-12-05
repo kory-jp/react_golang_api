@@ -46,5 +46,6 @@ func Init() {
 	http.HandleFunc("/users/delete/", parseURL(userController.Delete))
 	http.HandleFunc("/todos/new", todoController.Create)
 	http.HandleFunc("/todos/show/", parseURL(todoController.Show))
+	http.HandleFunc("/todos/update/", parseURL(todoController.Update))
 	http.ListenAndServe(":8080", nil)
 }

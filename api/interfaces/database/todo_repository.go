@@ -68,3 +68,21 @@ func (repo *TodoRepository) FindById(identifier int) (todo domain.Todo, err erro
 	todo.CreatedAt = created_at
 	return
 }
+
+func (repo *TodoRepository) Update(identifier int, t domain.Todo) (id int, err error) {
+	_, error := repo.Execute(`
+			update
+				todos
+			set
+				content = ?
+			where
+				id = ?
+	`, t.Content, identifier)
+	if error != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(error)
+		return
+	}
+	id = int(identifier)
+	return
+}

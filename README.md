@@ -1,6 +1,8 @@
 # TODO_APP by golang React Typescript
 
-## USER
+## API
+
+### USER
 
 users/create
 
@@ -26,7 +28,7 @@ users/delete
 curl -v -H "Accept: application/json"  -H "Content-Type: application/json"  http://localhost:8080/users/delete/1
 ```
 
-## TODO
+### TODO
 
 todos/create
 
@@ -38,4 +40,10 @@ todos/show
 
 ```
 curl -v -H "Accept: application/json"  -H "Content-Type: application/json" http://localhost:8080/todos/show/1
+```
+
+todos/update
+
+```
+curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -d '{"user_id":3,"content":"update_content"}' http://localhost:8080/todos/update/1
 ```
