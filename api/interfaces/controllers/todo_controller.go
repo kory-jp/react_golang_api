@@ -9,7 +9,7 @@ import (
 
 	"github.com/kory-jp/react_golang_api/api/domain"
 	"github.com/kory-jp/react_golang_api/api/interfaces/database"
-	"github.com/kory-jp/react_golang_api/api/usecase"
+	usecase "github.com/kory-jp/react_golang_api/api/usecase/todo"
 )
 
 type TodoController struct {
