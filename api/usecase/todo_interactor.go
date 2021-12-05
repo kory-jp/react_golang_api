@@ -46,3 +46,11 @@ func (interactor *TodoInteractor) UpdateTodo(indentifier int, t domain.Todo) (to
 	todo, err = interactor.TodoRepository.FindById(updateTodoIdentifier)
 	return
 }
+
+func (interactor *TodoInteractor) DeleteTodo(indentifier int) (err error) {
+	if err := interactor.TodoRepository.Delete(indentifier); err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	return
+}

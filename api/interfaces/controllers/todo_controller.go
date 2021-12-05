@@ -86,3 +86,12 @@ func (controller *TodoController) Update(w http.ResponseWriter, r *http.Request,
 	}
 	fmt.Fprintf(w, string(jsonTodo))
 }
+
+func (controller *TodoController) Delete(w http.ResponseWriter, r *http.Request, id int) {
+	if err := controller.Interactor.DeleteTodo(id); err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	} else {
+		fmt.Fprintln(w, "削除成功")
+	}
+}

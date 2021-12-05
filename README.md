@@ -47,3 +47,9 @@ todos/update
 ```
 curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -d '{"user_id":3,"content":"update_content"}' http://localhost:8080/todos/update/1
 ```
+
+todos/delte
+
+```
+curl -v -H "Accept: application/json"  -H "Content-Type: application/json"  http://localhost:8080/todos/delete/1
+```
