@@ -27,7 +27,6 @@ func NewTodoController(sqlHandler database.SqlHandler) *TodoController {
 }
 
 func (controller *TodoController) Create(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("test1")
 	bytesTodo, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.SetFlags(log.Llongfile)
