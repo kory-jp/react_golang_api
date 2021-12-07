@@ -59,3 +59,13 @@ todos/delte
 ```
 curl -v -H "Accept: application/json"  -H "Content-Type: application/json"  http://localhost:8080/todos/delete/1
 ```
+
+session/count
+
+```
+curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -c api/cookie.txt  http://localhost:8080/session
+```
+
+```
+curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -b api/cookie.txt  http://localhost:8080/session
+```

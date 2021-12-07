@@ -6,13 +6,12 @@ import (
 	"regexp"
 	"strconv"
 
+	_ "github.com/astaxie/session/providers/memory"
 	"github.com/kory-jp/react_golang_api/api/interfaces/controllers"
 )
 
 //正規表現を利用してURLを解析
 var validPath = regexp.MustCompile("^/(users|todos)/(show|update|delete)/([0-9]+)$")
-
-// var validPath = regexp.MustCompile("^/users/(show|update|delete)/([0-9]+)$")
 
 //URLからIDを解析して返却
 func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc {
@@ -36,6 +35,7 @@ func parseURL(fn func(http.ResponseWriter, *http.Request, int)) http.HandlerFunc
 }
 
 func Init() {
+	controllers.NewManager()
 	userController := controllers.NewUserController(NewSqlHandler())
 	todoController := controllers.NewTodoController(NewSqlHandler())
 	// http.HandleFunc("/user", controllers.GetUser)
@@ -49,5 +49,7 @@ func Init() {
 	http.HandleFunc("/todos/show/", parseURL(todoController.Show))
 	http.HandleFunc("/todos/update/", parseURL(todoController.Update))
 	http.HandleFunc("/todos/delete/", parseURL(todoController.Delete))
+	// http.HandleFunc("/cookie", controllers.Cookie)
+	http.HandleFunc("/session", controllers.Count)
 	http.ListenAndServe(":8080", nil)
 }

@@ -1,3 +1,5 @@
+github.com/astaxie/session v0.0.0-20130408050157-95d7fe18579c h1:FcFM+gBQ9Os0GEs3OOk9bmq3sHj8VkiRYHIpiLFfZSI=
+github.com/astaxie/session v0.0.0-20130408050157-95d7fe18579c/go.mod h1:0t1M8SLguRDiNomJJpdjSW2cifFnPTIX0HNL9MyMC78=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=
