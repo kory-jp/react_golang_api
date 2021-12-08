@@ -69,3 +69,9 @@ curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -c ap
 ```
 curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -b api/cookie.txt  http://localhost:8080/session
 ```
+
+session/login
+
+```
+curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -c api/cookie.txt -d '{"email":"sample@example.com", "password":"pass"}'  http://localhost:8080/login
+```
