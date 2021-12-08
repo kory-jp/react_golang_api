@@ -1,7 +1,6 @@
 package database
 
 import (
-	"crypto/sha1"
 	"fmt"
 	"log"
 	"time"
@@ -18,7 +17,8 @@ func (repo *UserRepository) Store(u domain.User) (id int, err error) {
 	// uuid作成
 	uuidobj, _ := uuid.NewUUID()
 	//パスワードを暗号化
-	cryptext := fmt.Sprintf("%x", sha1.Sum([]byte(u.Password)))
+	// cryptext := fmt.Sprintf("%x", sha1.Sum([]byte(u.Password)))
+	cryptext := u.Encrypt(u.Password)
 	result, err := repo.Execute(`
 		insert into
 			users(

@@ -60,6 +60,7 @@ func (controller *SessionController) Login(w http.ResponseWriter, r *http.Reques
 		log.Println(err)
 		return
 	}
-	user, err := controller.Interactor.Login(*userType)
-	fmt.Fprintln(w, user)
+	valid := controller.Interactor.Login(*userType)
+	fmt.Println(valid)
+	fmt.Fprintln(w, valid)
 }
