@@ -22,12 +22,17 @@ func (interactor *SessionInteractor) Count(sess session.Session) (coutup_sess se
 	return
 }
 
-func (interactor *SessionInteractor) Login(u domain.User) (user domain.User, err error) {
-	user, err = interactor.SessionRepository.FindByEmail(u)
+func (interactor *SessionInteractor) Login(u domain.User) (valid bool) {
+	user, err := interactor.SessionRepository.FindByEmail(u)
 	if err != nil {
 		log.SetFlags(log.Llongfile)
 		log.Println(err)
 		return
+	}
+	if user.Password == u.Encrypt(u.Password) {
+		valid = true
+	} else {
+		valid = false
 	}
 	return
 }

@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"crypto/sha1"
+	"fmt"
 	"time"
 )
 
@@ -14,3 +16,8 @@ type User struct {
 }
 
 type Users []User
+
+func (u User) Encrypt(plaintext string) (cryptext string) {
+	cryptext = fmt.Sprintf("%x", sha1.Sum([]byte(plaintext)))
+	return cryptext
+}
