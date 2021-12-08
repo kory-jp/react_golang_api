@@ -1,11 +1,16 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
+	"log"
 	"net/http"
 
 	"github.com/astaxie/session"
 	_ "github.com/astaxie/session/providers/memory"
+	"github.com/kory-jp/react_golang_api/api/domain"
+	"github.com/kory-jp/react_golang_api/api/interfaces/database"
 	usecase "github.com/kory-jp/react_golang_api/api/usecase/session"
 )
 
@@ -25,11 +30,15 @@ type SessionController struct {
 	Interactor usecase.SessionInteractor
 }
 
-func NewManager() *SessionController {
+func NewManager(sqlHandler database.SqlHandler) *SessionController {
 	GlobalSessions, _ = session.NewManager("memory", "gosessionid", 3600)
 	go GlobalSessions.GC()
 	return &SessionController{
-		Interactor: usecase.SessionInteractor{},
+		Interactor: usecase.SessionInteractor{
+			SessionRepository: &database.SessionRepository{
+				SqlHandler: sqlHandler,
+			},
+		},
 	}
 }
 
@@ -37,4 +46,20 @@ func (controller *SessionController) Count(w http.ResponseWriter, r *http.Reques
 	sess := GlobalSessions.SessionStart(w, r)
 	countup_sess := controller.Interactor.Count(sess)
 	fmt.Fprintln(w, countup_sess.Get("countnum"))
+}
+
+func (controller *SessionController) Login(w http.ResponseWriter, r *http.Request) {
+	bytesUser, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	userType := new(domain.User)
+	if err := json.Unmarshal(bytesUser, userType); err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+		return
+	}
+	user, err := controller.Interactor.Login(*userType)
+	fmt.Fprintln(w, user)
 }
