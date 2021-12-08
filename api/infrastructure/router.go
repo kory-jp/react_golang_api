@@ -38,6 +38,7 @@ func Init() {
 	controllers.NewManager()
 	userController := controllers.NewUserController(NewSqlHandler())
 	todoController := controllers.NewTodoController(NewSqlHandler())
+	sessionController := controllers.NewManager()
 	// http.HandleFunc("/user", controllers.GetUser)
 	http.HandleFunc("/users/new", userController.Create)
 	// http.HandleFunc("/users/index", userController.Index)
@@ -50,6 +51,6 @@ func Init() {
 	http.HandleFunc("/todos/update/", parseURL(todoController.Update))
 	http.HandleFunc("/todos/delete/", parseURL(todoController.Delete))
 	// http.HandleFunc("/cookie", controllers.Cookie)
-	http.HandleFunc("/session", controllers.Count)
+	http.HandleFunc("/session", sessionController.Count)
 	http.ListenAndServe(":8080", nil)
 }

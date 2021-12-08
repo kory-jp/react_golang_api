@@ -6,6 +6,7 @@ import (
 
 	"github.com/astaxie/session"
 	_ "github.com/astaxie/session/providers/memory"
+	usecase "github.com/kory-jp/react_golang_api/api/usecase/session"
 )
 
 // func Cookie(w http.ResponseWriter, r *http.Request) {
@@ -20,20 +21,20 @@ import (
 
 var GlobalSessions *session.Manager
 
-func NewManager() {
-	GlobalSessions, _ = session.NewManager("memory", "gosessionid", 3600)
-	go GlobalSessions.GC()
+type SessionController struct {
+	Interactor usecase.SessionInteractor
 }
 
-func Count(w http.ResponseWriter, r *http.Request) {
-	sess := GlobalSessions.SessionStart(w, r)
-	ct := sess.Get("countnum")
-	fmt.Println(sess)
-	if ct == nil {
-		sess.Set("countnum", 1)
-	} else {
-		sess.Set("countnum", (ct.(int) + 1))
+func NewManager() *SessionController {
+	GlobalSessions, _ = session.NewManager("memory", "gosessionid", 3600)
+	go GlobalSessions.GC()
+	return &SessionController{
+		Interactor: usecase.SessionInteractor{},
 	}
-	w.Header().Set("Content-type", "application/json")
-	fmt.Fprintln(w, sess.Get("countnum"))
+}
+
+func (controller *SessionController) Count(w http.ResponseWriter, r *http.Request) {
+	sess := GlobalSessions.SessionStart(w, r)
+	countup_sess := controller.Interactor.Count(sess)
+	fmt.Fprintln(w, countup_sess.Get("countnum"))
 }
