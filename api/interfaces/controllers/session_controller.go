@@ -49,6 +49,7 @@ func (controller *SessionController) Count(w http.ResponseWriter, r *http.Reques
 }
 
 func (controller *SessionController) Login(w http.ResponseWriter, r *http.Request) {
+	sess := GlobalSessions.SessionStart(w, r)
 	bytesUser, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.SetFlags(log.Llongfile)
@@ -60,7 +61,11 @@ func (controller *SessionController) Login(w http.ResponseWriter, r *http.Reques
 		log.Println(err)
 		return
 	}
-	valid := controller.Interactor.Login(*userType)
+	valid, err := controller.Interactor.Login(*userType, sess)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
 	fmt.Println(valid)
 	fmt.Fprintln(w, valid)
 }
