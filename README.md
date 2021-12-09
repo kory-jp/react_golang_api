@@ -83,3 +83,9 @@ session/IsLoggedin
 ```
 curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -b api/cookie.txt  http://localhost:8080/isloggedin
 ```
+
+session/logout
+
+```
+curl -v -H "Accept: application/json"  -H "Content-Type: application/json" -b api/cookie.txt  http://localhost:8080/logout
+```

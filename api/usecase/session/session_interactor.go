@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -50,5 +51,21 @@ func (interactor *SessionInteractor) IsLoggedin(s session.Session, c *http.Cooki
 	} else {
 		valid = false
 	}
+	return
+}
+
+func (interactor *SessionInteractor) Logout(s session.Session, c *http.Cookie) (valid bool, cookie http.Cookie, err error) {
+	if s.Get("uuid") == c.Value {
+		cookie = http.Cookie{
+			Name:     "_cookie",
+			Value:    "",
+			HttpOnly: true,
+		}
+		s.Delete("uuid")
+		valid = true
+	} else {
+		valid = false
+	}
+	fmt.Println(cookie)
 	return
 }
