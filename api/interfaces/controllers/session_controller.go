@@ -82,3 +82,20 @@ func (controller *SessionController) IsLoggedin(w http.ResponseWriter, r *http.R
 	fmt.Println(valid)
 	fmt.Fprintln(w, valid)
 }
+
+func (controller *SessionController) Logout(w http.ResponseWriter, r *http.Request) {
+	s := GlobalSessions.SessionStart(w, r)
+	c, err := r.Cookie("_cookie")
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	valid, cookie, err := controller.Interactor.Logout(s, c)
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	http.SetCookie(w, &cookie)
+	fmt.Println(valid)
+	fmt.Fprintln(w, valid)
+}
