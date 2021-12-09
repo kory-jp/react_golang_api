@@ -22,7 +22,7 @@ func (interactor *SessionInteractor) Count(sess session.Session) (coutup_sess se
 	return
 }
 
-func (interactor *SessionInteractor) Login(u domain.User) (valid bool) {
+func (interactor *SessionInteractor) Login(u domain.User, s session.Session) (valid bool, err error) {
 	user, err := interactor.SessionRepository.FindByEmail(u)
 	if err != nil {
 		log.SetFlags(log.Llongfile)
@@ -30,6 +30,8 @@ func (interactor *SessionInteractor) Login(u domain.User) (valid bool) {
 		return
 	}
 	if user.Password == u.Encrypt(u.Password) {
+		s.Set("uuid", user.UUID)
+		// fmt.Println(s.Get("uuid"))
 		valid = true
 	} else {
 		valid = false
