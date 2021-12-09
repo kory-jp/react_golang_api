@@ -61,11 +61,24 @@ func (controller *SessionController) Login(w http.ResponseWriter, r *http.Reques
 		log.Println(err)
 		return
 	}
-	valid, err := controller.Interactor.Login(*userType, sess)
+	valid, cookie, err := controller.Interactor.Login(*userType, sess)
 	if err != nil {
 		log.SetFlags(log.Llongfile)
 		log.Println(err)
 	}
+	http.SetCookie(w, &cookie)
+	fmt.Println(valid)
+	fmt.Fprintln(w, valid)
+}
+
+func (controller *SessionController) IsLoggedin(w http.ResponseWriter, r *http.Request) {
+	sess := GlobalSessions.SessionStart(w, r)
+	cookie, err := r.Cookie("_cookie")
+	if err != nil {
+		log.SetFlags(log.Llongfile)
+		log.Println(err)
+	}
+	valid := controller.Interactor.IsLoggedin(sess, cookie)
 	fmt.Println(valid)
 	fmt.Fprintln(w, valid)
 }

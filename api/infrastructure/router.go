@@ -52,5 +52,6 @@ func Init() {
 	// http.HandleFunc("/cookie", controllers.Cookie)
 	// http.HandleFunc("/session", sessionController.Count)
 	http.HandleFunc("/login", sessionController.Login)
+	http.HandleFunc("/isloggedin", sessionController.IsLoggedin)
 	http.ListenAndServe(":8080", nil)
 }
