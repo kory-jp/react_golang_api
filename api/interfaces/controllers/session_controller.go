@@ -14,16 +14,6 @@ import (
 	usecase "github.com/kory-jp/react_golang_api/api/usecase/session"
 )
 
-// func Cookie(w http.ResponseWriter, r *http.Request) {
-// 	expiration := time.Now()
-// 	expiration = expiration.AddDate(0, 0, 1)
-// 	cookie := http.Cookie{Name: "username", Value: "golang", Expires: expiration}
-// 	http.SetCookie(w, &cookie)
-// 	for _, c := range r.Cookies() {
-// 		log.Print("Name", c.Name, "Value", c.Value)
-// 	}
-// }
-
 var GlobalSessions *session.Manager
 
 type SessionController struct {
@@ -40,12 +30,6 @@ func NewManager(sqlHandler database.SqlHandler) *SessionController {
 			},
 		},
 	}
-}
-
-func (controller *SessionController) Count(w http.ResponseWriter, r *http.Request) {
-	sess := GlobalSessions.SessionStart(w, r)
-	countup_sess := controller.Interactor.Count(sess)
-	fmt.Fprintln(w, countup_sess.Get("countnum"))
 }
 
 func (controller *SessionController) Login(w http.ResponseWriter, r *http.Request) {
