@@ -1,8 +1,8 @@
 import { Box, Divider, Flex, Heading } from "@chakra-ui/layout";
 import { useCallback, VFC } from "react"
-import { useHistory } from "react-router";
-import { PrimaryButton } from "../atoms/button/PrimaryButton";
-import { TodoCard } from "../organisms/todo/TodoCard";
+import { useHistory } from "react-router-dom";
+import { PrimaryButton } from "../../atoms/button/PrimaryButton";
+import { TodoCard } from "../../organisms/todo/TodoCard";
 
 export const Index: VFC = () => {
   const history = useHistory()

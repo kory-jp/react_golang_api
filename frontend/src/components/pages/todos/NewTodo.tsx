@@ -1,8 +1,8 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import { Textarea } from "@chakra-ui/textarea";
 import { useCallback, VFC } from "react"
-import { useHistory } from "react-router";
-import { PrimaryButton } from "../atoms/button/PrimaryButton";
+import { useHistory } from "react-router-dom";
+import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 
 export const NewTodo: VFC = () => {
   const history = useHistory()

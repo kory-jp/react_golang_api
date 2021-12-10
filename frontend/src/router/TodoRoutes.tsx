@@ -1,6 +1,6 @@
-import EditTodo from "../components/pages/EditTodo";
-import Index from "../components/pages/Index";
-import NewTodo from "../components/pages/NewTodo";
+import EditTodo from "../components/pages/todos/EditTodo";
+import Index from "../components/pages/todos/Index";
+import NewTodo from "../components/pages/todos/NewTodo";
 import Page404 from "../components/pages/Page404";
 
 
