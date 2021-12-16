@@ -1,6 +1,6 @@
 import { useCallback, VFC } from "react"
 import { Box, Flex, Link, Text } from "@chakra-ui/react"
-import { useHistory } from "react-router"
+import { useHistory } from "react-router-dom"
 
 export const Header: VFC = () => {
   const history = useHistory()

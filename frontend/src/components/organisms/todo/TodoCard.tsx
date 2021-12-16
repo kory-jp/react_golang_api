@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { useCallback, VFC } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 export const TodoCard: VFC =() => {
   const history = useHistory()
