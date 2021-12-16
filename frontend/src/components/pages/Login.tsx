@@ -1,7 +1,7 @@
 import { useCallback, VFC } from "react"
 import { Box, Flex, Heading, Divider, Input, Stack } from "@chakra-ui/react"
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 export const Login: VFC = () => {
   const history = useHistory()
